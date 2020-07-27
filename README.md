@@ -5,6 +5,8 @@ Project demonstrating ASP.NET, C#, Registration and Login. CRUD in SQL, HTML, CS
 
 ![GitHub Logo](/images/Screenshot_5.png)
 
+![GitHub Logo](/images/Screenshot_4.png)
+
 
 ![GitHub Logo](/images/Screenshot_3.png)
 
@@ -20,6 +22,5 @@ Project demonstrating ASP.NET, C#, Registration and Login. CRUD in SQL, HTML, CS
 
 
 
-![GitHub Logo](/images/Screenshot_4.png)
 
 
