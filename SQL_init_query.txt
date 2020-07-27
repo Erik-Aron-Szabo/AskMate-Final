@@ -1,0 +1,82 @@
+﻿DROP TABLE IF EXISTS "question" CASCADE;
+DROP TABLE IF EXISTS "answer" CASCADE;
+DROP TABLE IF EXISTS "question_tag" CASCADE;
+DROP TABLE IF EXISTS "tag" CASCADE;
+DROP TABLE IF EXISTS "komment" CASCADE;
+DROP TABLE IF EXISTS "user" CASCADE;
+
+CREATE TABLE "user"(
+	"user_id" varchar(16) Primary Key,
+	email varchar(50) UNIQUE,
+	"password" TEXT,
+	salt TEXT,
+	reputation INT,
+	registration_date TIMESTAMP
+);
+
+
+
+CREATE TABLE question(
+	question_id SERIAL PRIMARY KEY,
+	submission_time TIMESTAMP,
+	view_number INT,
+	vote_number INT,
+	title varchar(50),
+	question_message text,
+	image TEXT,
+	user_id varchar(16),
+	FOREIGN KEY (user_id) references
+	"user"(user_id) ON DELETE SET NULL
+);
+CREATE TABLE answer(
+	answer_id SERIAL PRIMARY KEY,	
+	submission_time TIMESTAMP,
+	vote_number INT,
+	question_id INT,
+	answer_message TEXT,
+	image TEXT,
+	user_id varchar(16),
+	accepted varchar(3) DEFAULT 'no',
+	FOREIGN KEY (user_id) references
+	"user"(user_id) ON DELETE SET NULL,
+	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL
+); 
+
+CREATE TABLE tag(
+	tag_id SERIAL PRIMARY KEY,
+	tag_name varchar(40)
+);
+
+CREATE TABLE question_tag(
+	question_id INT,
+	tag_id INT,
+	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL,
+	FOREIGN KEY (tag_id) references "tag"(tag_id) ON DELETE SET NULL
+);
+
+CREATE TABLE komment(
+	komment_id SERIAL PRIMARY KEY,
+	question_id INT,
+	answer_id INT,
+	komment_message TEXT,
+	submission_time TIMESTAMP,
+	edited_number smallint,
+	user_id varchar(16),
+	FOREIGN KEY (user_id) references
+	"user"(user_id) ON DELETE SET NULL,
+	FOREIGN KEY (question_id) references "question"(question_id) ON DELETE SET NULL,
+	FOREIGN KEY (answer_id) references "answer"(answer_id) ON DELETE SET NULL
+);
+
+--user inserts
+
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Erik','erik@mail.com', 'erik', 0, '2020-04-10 4:10:00');
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Zoli', 'zoli@mail.com', 'zoli', 0, '2020-04-10 4:10:00');
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Istvan', 'istvan@mail.com', 'istvan', 0, '2020-04-11 4:11:00');
+INSERT INTO "user"(user_id, email, "password", reputation, registration_date)
+VALUES('Admin', 'admin@mail.com', 'admin', 100, '2020-04-12 4:12:00');
+
+--Question inserts
